@@ -21,6 +21,7 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler, A
     private ReviewManager reviewManager;
     private ReviewManagerFactory reviewManagerFactory;
     private Context applicationContext;
+    private ReviewInfo reviewInfo;
 
     public MethodCallHandlerImpl(Activity activity, Context applicationContext, MethodChannel methodChannel) {
         this.applicationContext = applicationContext;
@@ -32,29 +33,37 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler, A
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         switch (call.method) {
             case InAppReviewPlugin.MethodNames.INIT:
-                startConnection(
-                        (int) call.argument("handle"),
-                        (boolean) call.argument("enablePendingPurchases"),
-                        result);
+                startConnection(result);
+                break;
+            case InAppReviewPlugin.MethodNames.LAUNCH:
+                launchBillingFlow(result);
                 break;
             default:
                 result.notImplemented();
         }
     }
 
-    private void startConnection(int handle, boolean enablePendingPurchases, MethodChannel.Result result) {
+    private void launchBillingFlow(MethodChannel.Result result) {
+        if (reviewManager == null) {
+            result.error("NOT_FOUND", "In App Review manager has not been initialized", null);
+        }
+        Task<Void> flow = reviewManager.launchReviewFlow(activity, reviewInfo);
+        flow.addOnCompleteListener(task -> {
+            result.success(task.getResult().toString());
+        });
+    }
+
+    private void startConnection(MethodChannel.Result result) {
         if (reviewManager == null) {
             reviewManager = reviewManagerFactory.create(applicationContext);
         }
         Task<ReviewInfo> request = reviewManager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                // We can get the ReviewInfo object
-                ReviewInfo reviewInfo = task.getResult();
+                reviewInfo = task.getResult();
                 result.success(reviewInfo.toString());
             } else {
-                result.error("error", "Requesting review flow failed", null);
-                // There was some problem, continue regardless of the result.
+                result.error("REQUEST_ERROR", "Requesting review flow failed", null);
             }
         });
     }

@@ -59,7 +59,7 @@ public class InAppReviewPlugin implements FlutterPlugin, ActivityAware {
     }
 
     private void setupMethodChannel(Activity activity, BinaryMessenger messenger, Context context) {
-        methodChannel = new MethodChannel(messenger, "plugins.flutter.io/in_app_purchase");
+        methodChannel = new MethodChannel(messenger, "in_app_review");
         methodCallHandler =
                 new MethodCallHandlerImpl(activity, context, methodChannel);
         methodChannel.setMethodCallHandler(methodCallHandler);
@@ -67,6 +67,8 @@ public class InAppReviewPlugin implements FlutterPlugin, ActivityAware {
 
     public class MethodNames {
         static final String INIT =
-                "ReviewClient#init(ReviewClientStateListener)";
+                "init";
+        static final String LAUNCH =
+                "launch";
     }
 }
