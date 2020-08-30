@@ -17,7 +17,7 @@ void main() {
     channel.setMockMethodCallHandler(null);
   });
 
-  test('getPlatformVersion', () async {
+  test('create', () async {
     expect(await InAppReview.platformVersion, '42');
   });
 }
