@@ -1,6 +1,6 @@
 name: in_app_review
 description: The Flutter plugin for Google Play In-App Review.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/AnupKumarPanwar/in_app_review
 
 environment:

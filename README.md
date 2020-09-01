@@ -6,7 +6,7 @@ A Flutter Plugin for In-App-Review. The Google Play In-App Review API lets you p
 To install the package, add the following dependency to your `pubspec.yaml`
 ```
 dependencies:
-  in_app_review: ^0.0.1
+  in_app_review: ^0.0.2
 ```
 
 ## Usage
