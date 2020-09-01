@@ -80,5 +80,6 @@ public class InAppReviewPlugin implements FlutterPlugin, ActivityAware {
                 "init";
         static final String LAUNCH =
                 "launch";
+        
     }
 }

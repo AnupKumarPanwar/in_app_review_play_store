@@ -47,7 +47,6 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler, A
         }
         Task<Void> flow = reviewManager.launchReviewFlow(activity, reviewInfo);
         flow.addOnCompleteListener(task -> {
-            result.success(task);
         });
     }
 
@@ -59,7 +58,6 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler, A
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 reviewInfo = task.getResult();
-                result.success(reviewInfo);
             } else {
                 result.error("REQUEST_ERROR", "Requesting review flow failed", null);
             }

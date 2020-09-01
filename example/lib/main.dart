@@ -11,15 +11,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
     initInAppReview();
   }
 
-  initInAppReview() {
+  initInAppReview() async {
+    await Future.delayed(Duration(seconds: 1));
     InAppReview.init();
   }
 
