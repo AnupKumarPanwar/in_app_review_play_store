@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:in_app_review/in_app_review.dart';
+import 'package:in_app_review_play_store/in_app_review_play_store.dart';
 
 void main() {
   runApp(MyApp());

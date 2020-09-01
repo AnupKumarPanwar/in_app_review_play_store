@@ -1,6 +1,6 @@
 # in_app_review_example
 
-Demonstrates how to use the in_app_review plugin.
+Demonstrates how to use the in_app_review_play_store plugin.
 
 ## Getting Started
 

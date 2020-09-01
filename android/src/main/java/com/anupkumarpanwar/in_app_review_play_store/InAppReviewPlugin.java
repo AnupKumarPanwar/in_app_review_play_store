@@ -1,4 +1,4 @@
-package com.anupkumarpanwar.in_app_review;
+package com.anupkumarpanwar.in_app_review_play_store;
 
 import android.app.Activity;
 import android.app.Application;
@@ -63,7 +63,7 @@ public class InAppReviewPlugin implements FlutterPlugin, ActivityAware {
     }
 
     private void setupMethodChannel(Activity activity, BinaryMessenger messenger, Context context) {
-        methodChannel = new MethodChannel(messenger, "in_app_review");
+        methodChannel = new MethodChannel(messenger, "in_app_review_play_store");
         methodCallHandler =
                 new MethodCallHandlerImpl(activity, context);
         methodChannel.setMethodCallHandler(methodCallHandler);
@@ -80,6 +80,6 @@ public class InAppReviewPlugin implements FlutterPlugin, ActivityAware {
                 "init";
         static final String LAUNCH =
                 "launch";
-        
+
     }
 }

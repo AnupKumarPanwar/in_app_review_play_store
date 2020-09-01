@@ -1,4 +1,4 @@
-group 'com.anupkumarpanwar.in_app_review'
+group 'com.anupkumarpanwar.in_app_review_play_store'
 version '1.0'
 
 buildscript {

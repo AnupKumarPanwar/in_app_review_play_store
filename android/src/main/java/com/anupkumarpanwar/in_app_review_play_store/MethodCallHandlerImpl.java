@@ -1,4 +1,4 @@
-package com.anupkumarpanwar.in_app_review;
+package com.anupkumarpanwar.in_app_review_play_store;
 
 import android.app.Activity;
 import android.app.Application;
