@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
@@ -16,52 +17,49 @@ import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 
 public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler, Application.ActivityLifecycleCallbacks {
-    private MethodChannel methodChannel;
     private Activity activity;
     private ReviewManager reviewManager;
-    private ReviewManagerFactory reviewManagerFactory;
     private Context applicationContext;
     private ReviewInfo reviewInfo;
 
-    public MethodCallHandlerImpl(Activity activity, Context applicationContext, MethodChannel methodChannel) {
+    public MethodCallHandlerImpl(Activity activity, Context applicationContext) {
         this.applicationContext = applicationContext;
         this.activity = activity;
-        this.methodChannel = methodChannel;
     }
 
     @Override
     public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
         switch (call.method) {
             case InAppReviewPlugin.MethodNames.INIT:
-                startConnection(result);
+                init(result);
                 break;
             case InAppReviewPlugin.MethodNames.LAUNCH:
-                launchBillingFlow(result);
+                launch(result);
                 break;
             default:
                 result.notImplemented();
         }
     }
 
-    private void launchBillingFlow(MethodChannel.Result result) {
+    private void launch(MethodChannel.Result result) {
         if (reviewManager == null) {
             result.error("NOT_FOUND", "In App Review manager has not been initialized", null);
         }
         Task<Void> flow = reviewManager.launchReviewFlow(activity, reviewInfo);
         flow.addOnCompleteListener(task -> {
-            result.success(task.getResult().toString());
+            result.success(task);
         });
     }
 
-    private void startConnection(MethodChannel.Result result) {
+    private void init(MethodChannel.Result result) {
         if (reviewManager == null) {
-            reviewManager = reviewManagerFactory.create(applicationContext);
+            reviewManager = ReviewManagerFactory.create(applicationContext);
         }
         Task<ReviewInfo> request = reviewManager.requestReviewFlow();
         request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 reviewInfo = task.getResult();
-                result.success(reviewInfo.toString());
+                result.success(reviewInfo);
             } else {
                 result.error("REQUEST_ERROR", "Requesting review flow failed", null);
             }
@@ -100,6 +98,12 @@ public class MethodCallHandlerImpl implements MethodChannel.MethodCallHandler, A
 
     @Override
     public void onActivityDestroyed(Activity activity) {
+        if (this.activity == activity && this.applicationContext != null) {
+            ((Application) this.applicationContext).unregisterActivityLifecycleCallbacks(this);
+        }
+    }
 
+    void setActivity(@Nullable Activity activity) {
+        this.activity = activity;
     }
 }

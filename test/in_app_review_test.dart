@@ -18,6 +18,6 @@ void main() {
   });
 
   test('create', () async {
-    expect(await InAppReview.platformVersion, '42');
+    expect(InAppReview.init(), '42');
   });
 }
