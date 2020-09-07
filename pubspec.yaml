@@ -1,6 +1,6 @@
 name: in_app_review_play_store
-description: The Flutter plugin for Google Play In-App Review.
-version: 0.0.2
+description: The Flutter plugin for Google Play In-App Review that lets you prompt users to submit Play Store ratings and reviews without the inconvenience of leaving your app or game.
+version: 0.0.3
 homepage: https://github.com/AnupKumarPanwar/in_app_review_play_store
 
 environment:

@@ -3,3 +3,6 @@
 
 ## 0.0.2
 * Added LICENSE file
+
+## 0.0.3
+* Added dartdoc

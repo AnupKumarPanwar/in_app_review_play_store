@@ -18,7 +18,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   initInAppReview() async {
-    await Future.delayed(Duration(seconds: 1));
     InAppReview.init();
   }
 
@@ -27,7 +26,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('In App Review example app'),
         ),
         body: Center(
           child: RaisedButton(
