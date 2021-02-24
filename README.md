@@ -1,4 +1,4 @@
-# in_app_review_play_store [![pub package](https://img.shields.io/pub/v/linkable.svg)](https://pub.dartlang.org/packages/in_app_review_play_store)
+# in_app_review_play_store [![pub package](https://img.shields.io/pub/v/in_app_review_play_store.svg)](https://pub.dartlang.org/packages/in_app_review_play_store)
 
 A Flutter Plugin for In-App-Review. The Google Play In-App Review API lets you prompt users to submit Play Store ratings and reviews without the inconvenience of leaving your app or game.
 
